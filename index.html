@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>カメラマン紹介 | FILLMAN</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Noto Sans JP', 'Helvetica Neue', 'Hiragino Sans', sans-serif;
+      color: #333;
+      background: #fff;
+    }
+
+    /* ヘッダー */
+    .header {
+      padding: 16px 40px;
+      background: #fff;
+    }
+
+    .header-logo {
+      height: 32px;
+      display: block;
+    }
+
+    /* ヒーロー */
+    .hero {
+      background: url('hero-bg.jpg') center center / cover no-repeat;
+      text-align: center;
+      padding: 60px 20px;
+      position: relative;
+    }
+
+    .hero h1 {
+      color: #fff;
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      margin-bottom: 16px;
+      position: relative;
+    }
+
+    .hero .sub-logo {
+      position: relative;
+    }
+
+    .hero .sub-logo img {
+      height: 24px;
+      filter: brightness(0) invert(1);
+    }
+
+    /* カメラマンカード */
+    .photographers {
+      max-width: 1100px;
+      margin: 60px auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+
+    .photographer-card {
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .photographer-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px rgba(192, 14, 131, 0.15);
+    }
+
+    .photographer-card.active .card-border {
+      border: 3px solid #C00E83;
+      border-radius: 8px;
+    }
+
+    .card-img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      display: block;
+      border-radius: 8px 8px 0 0;
+    }
+
+    .card-info {
+      padding: 16px 8px;
+    }
+
+    .card-info h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .card-info .btn-portfolio {
+      display: inline-block;
+      padding: 8px 24px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #2e2b2d;
+      border: 1px solid #494648;
+      border-radius: 30px;
+      background: none;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .card-info .btn-portfolio:hover {
+      background: #C00E83;
+      color: #fff;
+    }
+
+    /* ポップアップ */
+    .popup-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      padding: 40px;
+    }
+
+    .popup-overlay.show {
+      display: flex;
+    }
+
+    .popup-content {
+      background: #fff;
+      border-radius: 12px;
+      max-width: 940px;
+      width: 100%;
+      max-height: 88vh;
+      overflow-y: auto;
+      position: relative;
+      padding: 0;
+    }
+
+    .popup-close {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      background: none;
+      border: none;
+      font-size: 28px;
+      cursor: pointer;
+      color: #999;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: background 0.2s;
+      z-index: 10;
+    }
+
+    .popup-close:hover {
+      background: #f0f0f0;
+      color: #333;
+    }
+
+    /* タブバー */
+    .tab-bar {
+      display: flex;
+      border-bottom: 2px solid #eee;
+      padding: 0 24px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 18px 20px;
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      font-size: 15px;
+      font-weight: 600;
+      color: #bbb;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-bottom: -2px;
+      text-align: center;
+    }
+
+    .tab-btn:hover {
+      color: #C00E83;
+    }
+
+    .tab-btn.active {
+      color: #C00E83;
+      border-bottom-color: #C00E83;
+    }
+
+    /* タブコンテンツ */
+    .portfolio-tab {
+      display: none;
+      padding: 28px 28px 32px;
+    }
+
+    .portfolio-tab.active {
+      display: block;
+    }
+
+    .popup-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .popup-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .popup-header h2 {
+      font-size: 20px;
+    }
+
+    .popup-header p {
+      font-size: 13px;
+      color: #888;
+      margin-top: 2px;
+    }
+
+    .popup-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .popup-img-wrap {
+      aspect-ratio: 1;
+      border-radius: 6px;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.2s;
+    }
+
+    .popup-img-wrap:hover {
+      transform: scale(1.03);
+    }
+
+    .popup-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .popup-img-wrap:hover::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(192, 14, 131, 0.25);
+    }
+
+    /* プレースホルダー */
+    .placeholder {
+      background: linear-gradient(135deg, #f0f0f0, #ddd);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #bbb;
+      font-size: 13px;
+    }
+
+    /* ライトボックス */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.92);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .lightbox.show {
+      display: flex;
+    }
+
+    .lightbox img {
+      max-width: 88%;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 4px;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 36px;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.15);
+      border: none;
+      color: #fff;
+      font-size: 28px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .lightbox-nav:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .lightbox-prev {
+      left: 20px;
+    }
+
+    .lightbox-next {
+      right: 20px;
+    }
+
+    .lightbox-counter {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 14px;
+    }
+
+    /* フッター */
+    .footer {
+      text-align: center;
+      padding: 40px 20px;
+      background: #f8f8f8;
+      color: #aaa;
+      font-size: 13px;
+    }
+
+    /* レスポンシブ */
+    @media (max-width: 768px) {
+      .photographers {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+      }
+
+      .popup-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .hero h1 {
+        font-size: 22px;
+        letter-spacing: 2px;
+      }
+
+      .popup-content {
+        margin: 16px;
+      }
+
+      .portfolio-tab {
+        padding: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .photographers {
+        grid-template-columns: 1fr;
+        max-width: 320px;
+        margin: 40px auto;
+      }
+
+      .header {
+        padding: 12px 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="header">
+    <img src="logo.png" alt="FILLMAN" class="header-logo">
+  </header>
+
+  <section class="hero">
+    <h1>カメラマン紹介</h1>
+    <div class="sub-logo"><img src="logo.png" alt="FILLMAN"></div>
+  </section>
+
+  <section class="photographers" id="photographers">
+    <div class="photographer-card" onclick="selectPhotographer(0)">
+      <div class="card-border">
+        <div class="card-img placeholder">プロフィール画像</div>
+        <div class="card-info">
+          <h3>鈴木千恵</h3>
+          <button class="btn-portfolio">ポートフォリオを見る</button>
+        </div>
+      </div>
+    </div>
+    <div class="photographer-card" onclick="selectPhotographer(1)">
+      <div class="card-border">
+        <div class="card-img placeholder">プロフィール画像</div>
+        <div class="card-info">
+          <h3>日浦香織</h3>
+          <button class="btn-portfolio">ポートフォリオを見る</button>
+        </div>
+      </div>
+    </div>
+    <div class="photographer-card" onclick="selectPhotographer(2)">
+      <div class="card-border">
+        <div class="card-img placeholder">プロフィール画像</div>
+        <div class="card-info">
+          <h3>石田勇太</h3>
+          <button class="btn-portfolio">ポートフォリオを見る</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ポップアップ -->
+  <div class="popup-overlay" id="popup">
+    <div class="popup-content">
+      <button class="popup-close" onclick="closePopup()">&times;</button>
+      <div class="tab-bar" id="tabBar">
+        <button class="tab-btn active" onclick="switchTab(0)">鈴木千恵</button>
+        <button class="tab-btn" onclick="switchTab(1)">日浦香織</button>
+        <button class="tab-btn" onclick="switchTab(2)">石田勇太</button>
+      </div>
+      <div class="portfolio-tab active" id="tab-0">
+        <div class="popup-header">
+          <div class="popup-avatar placeholder"></div>
+          <div>
+            <h2>鈴木千恵</h2>
+          </div>
+        </div>
+        <div class="popup-grid" id="grid-0"></div>
+      </div>
+      <div class="portfolio-tab" id="tab-1">
+        <div class="popup-header">
+          <div class="popup-avatar placeholder"></div>
+          <div>
+            <h2>日浦香織</h2>
+          </div>
+        </div>
+        <div class="popup-grid" id="grid-1"></div>
+      </div>
+      <div class="portfolio-tab" id="tab-2">
+        <div class="popup-header">
+          <div class="popup-avatar placeholder"></div>
+          <div>
+            <h2>石田勇太</h2>
+          </div>
+        </div>
+        <div class="popup-grid" id="grid-2"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ライトボックス -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+    <button class="lightbox-nav lightbox-prev" onclick="navigateLightbox(-1)">&#8249;</button>
+    <img id="lightbox-img" src="" alt="">
+    <button class="lightbox-nav lightbox-next" onclick="navigateLightbox(1)">&#8250;</button>
+    <div class="lightbox-counter" id="lightbox-counter"></div>
+  </div>
+
+  <footer class="footer">&copy; FILLMAN All Rights Reserved.</footer>
+
+  <script>
+    // ========================================
+    // カメラマンデータ（画像パスを差し替えてください）
+    // ========================================
+    const photographers = [
+      {
+        name: '鈴木千恵',
+        desc: 'ウェディング・ファミリーフォト',
+        avatar: '',
+        photos: [
+          'sample/suzuki鈴木千恵_business1.jpg',
+          'sample/suzuki鈴木千恵_business2.jpg',
+          'sample/suzuki鈴木千恵_event2.jpg',
+          'sample/suzukihcie_portrait2.jpg',
+        ]
+      },
+      {
+        name: '日浦香織',
+        desc: 'ポートレート・商品撮影',
+        avatar: '',
+        photos: []
+      },
+      {
+        name: '石田勇太',
+        desc: '風景・建築写真',
+        avatar: '',
+        photos: []
+      }
+    ];
+
+    // デモ用プレースホルダー（写真がないときは9枚分表示）
+    photographers.forEach(p => {
+      if (p.photos.length === 0) {
+        for (let j = 1; j <= 9; j++) p.photos.push('');
+      }
+    });
+
+    // グリッド生成
+    photographers.forEach((p, i) => {
+      const grid = document.getElementById('grid-' + i);
+      p.photos.forEach((src, j) => {
+        const wrap = document.createElement('div');
+        wrap.className = 'popup-img-wrap' + (src ? '' : ' placeholder');
+        if (src) {
+          const img = document.createElement('img');
+          img.src = src;
+          img.alt = p.name + ' ' + (j + 1);
+          wrap.appendChild(img);
+        } else {
+          wrap.textContent = p.name + ' ' + (j + 1);
+        }
+        wrap.onclick = () => openLightbox(i, j);
+        grid.appendChild(wrap);
+      });
+    });
+
+    // カメラマン選択
+    function selectPhotographer(index) {
+      document.querySelectorAll('.photographer-card').forEach((c, i) => c.classList.toggle('active', i === index));
+      switchTab(index);
+      document.getElementById('popup').classList.add('show');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // タブ切替
+    function switchTab(index) {
+      document.querySelectorAll('.tab-btn').forEach((b, i) => b.classList.toggle('active', i === index));
+      document.querySelectorAll('.portfolio-tab').forEach((t, i) => t.classList.toggle('active', i === index));
+    }
+
+    // ポップアップ閉じる
+    function closePopup() {
+      document.getElementById('popup').classList.remove('show');
+      document.body.style.overflow = '';
+      document.querySelectorAll('.photographer-card').forEach(c => c.classList.remove('active'));
+    }
+
+    // ライトボックス
+    let curP = 0, curI = 0;
+    function openLightbox(pIdx, iIdx) {
+      curP = pIdx; curI = iIdx;
+      updateLightbox();
+      document.getElementById('lightbox').classList.add('show');
+    }
+    function closeLightbox() { document.getElementById('lightbox').classList.remove('show'); }
+    function navigateLightbox(dir) {
+      const len = photographers[curP].photos.length;
+      curI = (curI + dir + len) % len;
+      updateLightbox();
+    }
+    function updateLightbox() {
+      const src = photographers[curP].photos[curI];
+      const img = document.getElementById('lightbox-img');
+      img.src = src || '';
+      img.alt = photographers[curP].name + ' ' + (curI + 1);
+      document.getElementById('lightbox-counter').textContent =
+        (curI + 1) + ' / ' + photographers[curP].photos.length;
+    }
+
+    // キーボード操作
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        document.getElementById('lightbox').classList.contains('show') ? closeLightbox() : closePopup();
+      }
+      if (document.getElementById('lightbox').classList.contains('show')) {
+        if (e.key === 'ArrowLeft') navigateLightbox(-1);
+        if (e.key === 'ArrowRight') navigateLightbox(1);
+      }
+    });
+
+    // オーバーレイクリックで閉じる
+    document.getElementById('popup').addEventListener('click', e => { if (e.target === e.currentTarget) closePopup(); });
+    document.getElementById('lightbox').addEventListener('click', e => { if (e.target === e.currentTarget) closeLightbox(); });
+  </script>
+</body>
+
+</html>
