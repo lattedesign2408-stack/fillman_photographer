@@ -19,12 +19,17 @@
       font-family: 'Noto Sans JP', 'Helvetica Neue', 'Hiragino Sans', sans-serif;
       color: #333;
       background: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     /* ヘッダー */
     .header {
       padding: 16px 40px;
       background: #fff;
+      position: relative;
+      z-index: 1100;
     }
 
     .header-logo {
@@ -71,13 +76,13 @@
     .photographer-card {
       cursor: pointer;
       transition: transform 0.3s, box-shadow 0.3s;
-      border-radius: 8px;
       overflow: hidden;
     }
 
     .photographer-card:hover {
       transform: translateY(-4px);
       box-shadow: 0 8px 30px rgba(192, 14, 131, 0.15);
+      border-radius: 8px;
     }
 
     .photographer-card.active .card-border {
@@ -90,7 +95,7 @@
       aspect-ratio: 1;
       object-fit: cover;
       display: block;
-      border-radius: 8px 8px 0 0;
+      border-radius: 4px;
     }
 
     .card-info {
@@ -125,12 +130,15 @@
     .popup-overlay {
       display: none;
       position: fixed;
-      inset: 0;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
       background: rgba(0, 0, 0, 0.7);
       z-index: 1000;
       justify-content: center;
       align-items: center;
-      padding: 40px;
+      padding: 10px;
     }
 
     .popup-overlay.show {
@@ -165,6 +173,7 @@
       border-radius: 50%;
       transition: background 0.2s;
       z-index: 10;
+      touch-action: manipulation;
     }
 
     .popup-close:hover {
@@ -239,18 +248,18 @@
     }
 
     .popup-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
+      columns: 3;
+      column-gap: 8px;
     }
 
     .popup-img-wrap {
-      aspect-ratio: 1;
       border-radius: 6px;
       overflow: hidden;
       cursor: pointer;
       position: relative;
       transition: transform 0.2s;
+      margin-bottom: 8px;
+      break-inside: avoid;
     }
 
     .popup-img-wrap:hover {
@@ -259,16 +268,8 @@
 
     .popup-img-wrap img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      height: auto;
       display: block;
-    }
-
-    .popup-img-wrap:hover::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(192, 14, 131, 0.25);
     }
 
     /* プレースホルダー */
@@ -357,6 +358,7 @@
       background: #f8f8f8;
       color: #aaa;
       font-size: 13px;
+      margin-top: auto;
     }
 
     /* レスポンシブ */
@@ -367,7 +369,7 @@
       }
 
       .popup-grid {
-        grid-template-columns: repeat(2, 1fr);
+        columns: 2;
       }
 
       .hero h1 {
@@ -385,14 +387,131 @@
     }
 
     @media (max-width: 480px) {
-      .photographers {
-        grid-template-columns: 1fr;
-        max-width: 320px;
-        margin: 40px auto;
+      .header {
+        padding: 10px 16px;
       }
 
-      .header {
-        padding: 12px 20px;
+      .header-logo {
+        height: 24px;
+      }
+
+      .hero {
+        padding: 36px 16px;
+      }
+
+      .hero h1 {
+        font-size: 18px;
+        letter-spacing: 1px;
+        margin-bottom: 10px;
+      }
+
+      .hero .sub-logo img {
+        height: 18px;
+      }
+
+      .photographers {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin: 30px auto;
+        padding: 0 12px;
+        max-width: 100%;
+      }
+
+      .card-info {
+        padding: 8px 2px;
+      }
+
+      .card-info h3 {
+        font-size: 12px;
+        margin-bottom: 6px;
+      }
+
+      .card-info .btn-portfolio {
+        padding: 5px 12px;
+        font-size: 10px;
+      }
+
+      .popup-overlay {
+        padding: 0;
+        padding-top: 44px;
+        align-items: stretch;
+      }
+
+      .popup-content {
+        border-radius: 0;
+        max-height: calc(100vh - 44px);
+        max-width: 100%;
+        margin: 0;
+      }
+
+      .tab-bar {
+        padding: 0 8px;
+      }
+
+      .tab-btn {
+        padding: 14px 8px;
+        font-size: 14px;
+      }
+
+      .popup-close {
+        position: static;
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        min-height: 44px;
+        font-size: 24px;
+        flex-shrink: 0;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+      }
+
+      .tab-bar {
+        position: sticky;
+        top: 0;
+        background: #fff;
+        z-index: 10;
+        align-items: center;
+      }
+
+      .portfolio-tab {
+        padding: 16px 12px 24px;
+      }
+
+      .popup-header {
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+
+      .popup-avatar {
+        width: 40px;
+        height: 40px;
+      }
+
+      .popup-header h2 {
+        font-size: 16px;
+      }
+
+      .popup-grid {
+        columns: 2;
+      }
+
+      .lightbox-nav {
+        width: 36px;
+        height: 36px;
+        font-size: 22px;
+      }
+
+      .lightbox-prev {
+        left: 8px;
+      }
+
+      .lightbox-next {
+        right: 8px;
+      }
+
+      .footer {
+        padding: 24px 16px;
+        font-size: 11px;
       }
     }
   </style>
@@ -401,7 +520,8 @@
 <body>
 
   <header class="header">
-    <img src="logo.png" alt="FILLMAN" class="header-logo">
+    <a href="https://lattedesign2408-stack.github.io/fillman-photo/"><img src="logo.png" alt="FILLMAN"
+        class="header-logo"></a>
   </header>
 
   <section class="hero">
@@ -415,7 +535,7 @@
         <div class="card-img placeholder">プロフィール画像</div>
         <div class="card-info">
           <h3>鈴木千恵</h3>
-          <button class="btn-portfolio">ポートフォリオを見る</button>
+          <button class="btn-portfolio">ポートフォリオ</button>
         </div>
       </div>
     </div>
@@ -424,7 +544,7 @@
         <div class="card-img placeholder">プロフィール画像</div>
         <div class="card-info">
           <h3>日浦香織</h3>
-          <button class="btn-portfolio">ポートフォリオを見る</button>
+          <button class="btn-portfolio">ポートフォリオ</button>
         </div>
       </div>
     </div>
@@ -433,7 +553,7 @@
         <div class="card-img placeholder">プロフィール画像</div>
         <div class="card-info">
           <h3>石田勇太</h3>
-          <button class="btn-portfolio">ポートフォリオを見る</button>
+          <button class="btn-portfolio">ポートフォリオ</button>
         </div>
       </div>
     </div>
@@ -442,11 +562,11 @@
   <!-- ポップアップ -->
   <div class="popup-overlay" id="popup">
     <div class="popup-content">
-      <button class="popup-close" onclick="closePopup()">&times;</button>
       <div class="tab-bar" id="tabBar">
         <button class="tab-btn active" onclick="switchTab(0)">鈴木千恵</button>
         <button class="tab-btn" onclick="switchTab(1)">日浦香織</button>
         <button class="tab-btn" onclick="switchTab(2)">石田勇太</button>
+        <button class="popup-close" id="popupCloseBtn">&times;</button>
       </div>
       <div class="portfolio-tab active" id="tab-0">
         <div class="popup-header">
@@ -497,19 +617,41 @@
       {
         name: '鈴木千恵',
         desc: 'ウェディング・ファミリーフォト',
-        avatar: '',
+        avatar: 'images/suzukichie/0029_original.jpg',
         photos: [
-          'sample/suzuki鈴木千恵_business1.jpg',
-          'sample/suzuki鈴木千恵_business2.jpg',
-          'sample/suzuki鈴木千恵_event2.jpg',
-          'sample/suzukihcie_portrait2.jpg',
+          'images/suzukichie/12-20240815-DSC_1066.jpg',
+          'images/suzukichie/2-20250113-R0008689.jpg',
+          'images/suzukichie/240121-R0004880.jpg',
+          'images/suzukichie/240121-R0004943.jpg',
+          'images/suzukichie/6-20250113-R0008697.jpg',
+          'images/suzukichie/7-20240815-DSC_1021.jpg',
+          'images/suzukichie/DSC_0050-3.jpg',
+          'images/suzukichie/DSC_0185-36.jpg',
+          'images/suzukichie/DSC_2775-2.jpg',
+          'images/suzukichie/DSC_2862-8.jpg',
+          'images/suzukichie/DSC_7560-3-2.jpg',
+          'images/suzukichie/DSC_7669-23-17.jpg',
         ]
       },
       {
         name: '日浦香織',
         desc: 'ポートレート・商品撮影',
-        avatar: '',
-        photos: []
+        avatar: 'images/kaori/DSC_8126.jpg',
+        photos: [
+          'images/kaori/work1.jpg',
+          'images/kaori/work2.jpg',
+          'images/kaori/work3.jpg',
+          'images/kaori/adult_outdoor1.jpg',
+          'images/kaori/adult_outdoor2.jpg',
+          'images/kaori/adult_indoor1.jpg',
+          'images/kaori/adult_indoor2.jpg',
+          'images/kaori/adult_indoor3.jpg',
+          'images/kaori/family_outdoor1.jpg',
+          'images/kaori/family_outdoor2.jpg',
+          'images/kaori/family_indoor1.jpg',
+          'images/kaori/family_indoor2.jpg',
+          'images/kaori/family_indoor3.jpg',
+        ]
       },
       {
         name: '石田勇太',
@@ -523,6 +665,25 @@
     photographers.forEach(p => {
       if (p.photos.length === 0) {
         for (let j = 1; j <= 9; j++) p.photos.push('');
+      }
+    });
+
+    // プロフィール画像を反映
+    photographers.forEach((p, i) => {
+      if (p.avatar) {
+        const cardImg = document.querySelectorAll('.photographer-card')[i].querySelector('.card-img');
+        const img = document.createElement('img');
+        img.src = p.avatar;
+        img.alt = p.name;
+        img.className = 'card-img';
+        cardImg.replaceWith(img);
+
+        const popupAvatar = document.querySelectorAll('.popup-avatar')[i];
+        const avatarImg = document.createElement('img');
+        avatarImg.src = p.avatar;
+        avatarImg.alt = p.name;
+        avatarImg.className = 'popup-avatar';
+        popupAvatar.replaceWith(avatarImg);
       }
     });
 
@@ -598,6 +759,20 @@
         if (e.key === 'ArrowRight') navigateLightbox(1);
       }
     });
+
+    // 閉じるボタン（モバイル対応）
+    (function () {
+      const closeBtn = document.getElementById('popupCloseBtn');
+      closeBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        closePopup();
+      });
+      closeBtn.addEventListener('touchend', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        closePopup();
+      });
+    })();
 
     // オーバーレイクリックで閉じる
     document.getElementById('popup').addEventListener('click', e => { if (e.target === e.currentTarget) closePopup(); });
