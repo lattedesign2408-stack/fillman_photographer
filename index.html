@@ -534,7 +534,7 @@
   <section class="photographers" id="photographers">
     <div class="photographer-card" onclick="selectPhotographer(0)">
       <div class="card-border">
-        <div class="card-img placeholder">プロフィール画像</div>
+        <img src="images/suzukichie/0029_original.jpg" alt="鈴木千恵" class="card-img">
         <div class="card-info">
           <h3>鈴木千恵</h3>
           <button class="btn-portfolio">ポートフォリオ</button>
@@ -543,7 +543,7 @@
     </div>
     <div class="photographer-card" onclick="selectPhotographer(1)">
       <div class="card-border">
-        <div class="card-img placeholder">プロフィール画像</div>
+        <img src="images/kaori/DSC_8126.jpg" alt="日浦香織" class="card-img">
         <div class="card-info">
           <h3>日浦香織</h3>
           <button class="btn-portfolio">ポートフォリオ</button>
@@ -552,7 +552,7 @@
     </div>
     <div class="photographer-card" onclick="selectPhotographer(2)">
       <div class="card-border">
-        <div class="card-img placeholder">プロフィール画像</div>
+        <img src="images/ishidayuta/profile.jpg" alt="石田勇太" class="card-img">
         <div class="card-info">
           <h3>石田勇太</h3>
           <button class="btn-portfolio">ポートフォリオ</button>
@@ -572,30 +572,64 @@
       </div>
       <div class="portfolio-tab active" id="tab-0">
         <div class="popup-header">
-          <div class="popup-avatar placeholder"></div>
-          <div>
-            <h2>鈴木千恵</h2>
-          </div>
+          <img src="images/suzukichie/0029_original.jpg" alt="鈴木千恵" class="popup-avatar">
+          <div><h2>鈴木千恵</h2></div>
         </div>
-        <div class="popup-grid" id="grid-0"></div>
+        <div class="popup-grid" id="grid-0">
+          <div class="popup-img-wrap" onclick="openLightbox(0,0)"><img src="images/suzukichie/12-20240815-DSC_1066.jpg" alt="鈴木千恵 1"></div>
+          <div class="popup-img-wrap" onclick="openLightbox(0,1)"><img src="images/suzukichie/2-20250113-R0008689.jpg" alt="鈴木千恵 2"></div>
+          <div class="popup-img-wrap" onclick="openLightbox(0,2)"><img src="images/suzukichie/240121-R0004880.jpg" alt="鈴木千恵 3"></div>
+          <div class="popup-img-wrap" onclick="openLightbox(0,3)"><img src="images/suzukichie/240121-R0004943.jpg" alt="鈴木千恵 4"></div>
+          <div class="popup-img-wrap" onclick="openLightbox(0,4)"><img src="images/suzukichie/6-20250113-R0008697.jpg" alt="鈴木千恵 5"></div>
+          <div class="popup-img-wrap" onclick="openLightbox(0,5)"><img src="images/suzukichie/7-20240815-DSC_1021.jpg" alt="鈴木千恵 6"></div>
+          <div class="popup-img-wrap" onclick="openLightbox(0,6)"><img src="images/suzukichie/DSC_0050-3.jpg" alt="鈴木千恵 7"></div>
+          <div class="popup-img-wrap" onclick="openLightbox(0,7)"><img src="images/suzukichie/DSC_0185-36.jpg" alt="鈴木千恵 8"></div>
+          <div class="popup-img-wrap" onclick="openLightbox(0,8)"><img src="images/suzukichie/DSC_2775-2.jpg" alt="鈴木千恵 9"></div>
+          <div class="popup-img-wrap" onclick="openLightbox(0,9)"><img src="images/suzukichie/DSC_2862-8.jpg" alt="鈴木千恵 10"></div>
+          <div class="popup-img-wrap" onclick="openLightbox(0,10)"><img src="images/suzukichie/DSC_7560-3-2.jpg" alt="鈴木千恵 11"></div>
+          <div class="popup-img-wrap" onclick="openLightbox(0,11)"><img src="images/suzukichie/DSC_7669-23-17.jpg" alt="鈴木千恵 12"></div>
+        </div>
       </div>
       <div class="portfolio-tab" id="tab-1">
         <div class="popup-header">
-          <div class="popup-avatar placeholder"></div>
-          <div>
-            <h2>日浦香織</h2>
-          </div>
+          <img src="images/kaori/DSC_8126.jpg" alt="日浦香織" class="popup-avatar">
+          <div><h2>日浦香織</h2></div>
         </div>
-        <div class="popup-grid" id="grid-1"></div>
+        <div class="popup-grid" id="grid-1">
+          <div class="popup-img-wrap" onclick="openLightbox(1,0)"><img src="images/kaori/work1.jpg" alt="日浦香織 1"></div>
+          <div class="popup-img-wrap" onclick="openLightbox(1,1)"><img src="images/kaori/work2.jpg" alt="日浦香織 2"></div>
+          <div class="popup-img-wrap" onclick="openLightbox(1,2)"><img src="images/kaori/work3.jpg" alt="日浦香織 3"></div>
+          <div class="popup-img-wrap" onclick="openLightbox(1,3)"><img src="images/kaori/adult_outdoor1.jpg" alt="日浦香織 4"></div>
+          <div class="popup-img-wrap" onclick="openLightbox(1,4)"><img src="images/kaori/adult_outdoor2.jpg" alt="日浦香織 5"></div>
+          <div class="popup-img-wrap" onclick="openLightbox(1,5)"><img src="images/kaori/adult_indoor1.jpg" alt="日浦香織 6"></div>
+          <div class="popup-img-wrap" onclick="openLightbox(1,6)"><img src="images/kaori/adult_indoor2.jpg" alt="日浦香織 7"></div>
+          <div class="popup-img-wrap" onclick="openLightbox(1,7)"><img src="images/kaori/adult_indoor3.jpg" alt="日浦香織 8"></div>
+          <div class="popup-img-wrap" onclick="openLightbox(1,8)"><img src="images/kaori/family_outdoor1.jpg" alt="日浦香織 9"></div>
+          <div class="popup-img-wrap" onclick="openLightbox(1,9)"><img src="images/kaori/family_outdoor2.jpg" alt="日浦香織 10"></div>
+          <div class="popup-img-wrap" onclick="openLightbox(1,10)"><img src="images/kaori/family_indoor1.jpg" alt="日浦香織 11"></div>
+          <div class="popup-img-wrap" onclick="openLightbox(1,11)"><img src="images/kaori/family_indoor2.jpg" alt="日浦香織 12"></div>
+          <div class="popup-img-wrap" onclick="openLightbox(1,12)"><img src="images/kaori/family_indoor3.jpg" alt="日浦香織 13"></div>
+        </div>
       </div>
       <div class="portfolio-tab" id="tab-2">
         <div class="popup-header">
-          <div class="popup-avatar placeholder"></div>
-          <div>
-            <h2>石田勇太</h2>
-          </div>
+          <img src="images/ishidayuta/profile.jpg" alt="石田勇太" class="popup-avatar">
+          <div><h2>石田勇太</h2></div>
         </div>
-        <div class="popup-grid" id="grid-2"></div>
+        <div class="popup-grid" id="grid-2">
+          <div class="popup-img-wrap" onclick="openLightbox(2,0)"><img src="images/ishidayuta/portrait1.jpg" alt="石田勇太 1"></div>
+          <div class="popup-img-wrap" onclick="openLightbox(2,1)"><img src="images/ishidayuta/portrait2.jpg" alt="石田勇太 2"></div>
+          <div class="popup-img-wrap" onclick="openLightbox(2,2)"><img src="images/ishidayuta/portrait3.jpg" alt="石田勇太 3"></div>
+          <div class="popup-img-wrap" onclick="openLightbox(2,3)"><img src="images/ishidayuta/portrait4.jpg" alt="石田勇太 4"></div>
+          <div class="popup-img-wrap" onclick="openLightbox(2,4)"><img src="images/ishidayuta/portrait5.jpg" alt="石田勇太 5"></div>
+          <div class="popup-img-wrap" onclick="openLightbox(2,5)"><img src="images/ishidayuta/portrait6.jpg" alt="石田勇太 6"></div>
+          <div class="popup-img-wrap" onclick="openLightbox(2,6)"><img src="images/ishidayuta/portrait7.jpg" alt="石田勇太 7"></div>
+          <div class="popup-img-wrap" onclick="openLightbox(2,7)"><img src="images/ishidayuta/portrait8.jpg" alt="石田勇太 8"></div>
+          <div class="popup-img-wrap" onclick="openLightbox(2,8)"><img src="images/ishidayuta/portrait9.jpg" alt="石田勇太 9"></div>
+          <div class="popup-img-wrap" onclick="openLightbox(2,9)"><img src="images/ishidayuta/portrait10.jpg" alt="石田勇太 10"></div>
+          <div class="popup-img-wrap" onclick="openLightbox(2,10)"><img src="images/ishidayuta/portrait11.jpg" alt="石田勇太 11"></div>
+          <div class="popup-img-wrap" onclick="openLightbox(2,11)"><img src="images/ishidayuta/portrait12.jpg" alt="石田勇太 12"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -675,51 +709,6 @@
         ]
       }
     ];
-
-    // デモ用プレースホルダー（写真がないときは9枚分表示）
-    photographers.forEach(p => {
-      if (p.photos.length === 0) {
-        for (let j = 1; j <= 9; j++) p.photos.push('');
-      }
-    });
-
-    // プロフィール画像を反映
-    photographers.forEach((p, i) => {
-      if (p.avatar) {
-        const cardImg = document.querySelectorAll('.photographer-card')[i].querySelector('.card-img');
-        const img = document.createElement('img');
-        img.src = p.avatar;
-        img.alt = p.name;
-        img.className = 'card-img';
-        cardImg.replaceWith(img);
-
-        const popupAvatar = document.querySelectorAll('.popup-avatar')[i];
-        const avatarImg = document.createElement('img');
-        avatarImg.src = p.avatar;
-        avatarImg.alt = p.name;
-        avatarImg.className = 'popup-avatar';
-        popupAvatar.replaceWith(avatarImg);
-      }
-    });
-
-    // グリッド生成
-    photographers.forEach((p, i) => {
-      const grid = document.getElementById('grid-' + i);
-      p.photos.forEach((src, j) => {
-        const wrap = document.createElement('div');
-        wrap.className = 'popup-img-wrap' + (src ? '' : ' placeholder');
-        if (src) {
-          const img = document.createElement('img');
-          img.src = src;
-          img.alt = p.name + ' ' + (j + 1);
-          wrap.appendChild(img);
-        } else {
-          wrap.textContent = p.name + ' ' + (j + 1);
-        }
-        wrap.onclick = () => openLightbox(i, j);
-        grid.appendChild(wrap);
-      });
-    });
 
     // カメラマン選択
     function selectPhotographer(index) {
